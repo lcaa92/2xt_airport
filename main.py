@@ -25,7 +25,7 @@ def check_airport(airport_from, airport_to):
 		return False		
 	return True
 
-def haversine(lon1, lat1, lon2, lat2):
+def calc_haversine(lon1, lat1, lon2, lat2):
     """
     Calculate the great circle distance between two points 
     on the earth (specified in decimal degrees)
@@ -39,7 +39,11 @@ def haversine(lon1, lat1, lon2, lat2):
     a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
     c = 2 * asin(sqrt(a)) 
     r = 6371 # Radius of earth in kilometers. Use 3956 for miles
-    return c * r
+    return "{0:.2f}".format(round(c*r,2))
+   # return c * r
+
+def convert_string_dateTime(dateTime1):
+	return datetime.strptime(dateTime1.replace("T", " "), '%Y-%m-%d %H:%M:%S')
 
 count = 0
 airports = []
@@ -62,6 +66,28 @@ for airport_from in airports:
 		response = requests.get(url_search, auth=auth_values)
 		data_flight = response.json()
 		print("----------------------------------------------")
-		print("Haversine "+haversine(data_flight['summary']['from']['lon'], data_flight['summary']['from']['lat'], data_flight['summary']['to']['lon'], data_flight['summary']['to']['lat']))
+		print("Haversine")
+		haversine = calc_haversine(data_flight['summary']['from']['lon'], data_flight['summary']['from']['lat'], data_flight['summary']['to']['lon'], data_flight['summary']['to']['lat'])
+		print(haversine)
+		print("Options Time")
+		for option in data_flight['options']:
+			print("!!!!!!!!!!!!!!!!!")
+			time_flight = convert_string_dateTime(option['arrival_time']) - convert_string_dateTime(option['departure_time'])
+			print( "TEMPO VOO" )
+			print( time_flight )
+			print( "TEMPO VOO (HORAS)" )
+			print( time_flight.seconds / 3600.0 )
+			print("Preço Tarifa por KM")
+			km_tarifa = float(haversine) / float(option['fare_price']) 
+			print( "{0:.2f}".format(round( km_tarifa,2)) )
+			time_minutes = time_flight.seconds / 3600.0
+			print( "VELOCIDADE MEDIA" )
+			velocidade_media = float(haversine) / time_minutes
+			print( "{0:.2f}".format(round( velocidade_media,2)) )
+			if velocidade_media > 1500:
+				print(option["departure_time"])
+				print(option["arrival_time"])
+				print(option["aircraft"]["model"])
+			print("!!!!!!!!!!!!!!!!!")	
 		print("----------------------------------------------")
 	print("#########################################")
