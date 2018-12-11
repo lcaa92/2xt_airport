@@ -45,6 +45,11 @@ def calc_haversine(lon1, lat1, lon2, lat2):
 def convert_string_dateTime(dateTime1):
 	return datetime.strptime(dateTime1.replace("T", " "), '%Y-%m-%d %H:%M:%S')
 
+def tempo_voo(arrival_time, departure_time):
+	time = convert_string_dateTime(arrival_time) - convert_string_dateTime(departure_time)
+	time = time.seconds / 3600.0
+	return time
+
 count = 0
 airports = []
 
@@ -65,29 +70,33 @@ for airport_from in airports:
 		url_search = base_url_search+airport_from['iata']+'/'+airport_to['iata']+'/'+date_search
 		response = requests.get(url_search, auth=auth_values)
 		data_flight = response.json()
+
+		#Distância linear em kms (Haversine)
+			#Para cada avião:
+				#Velocidade de voo aproximada.
+				#Tarifa por km
+
 		print("----------------------------------------------")
 		print("Haversine")
-		haversine = calc_haversine(data_flight['summary']['from']['lon'], data_flight['summary']['from']['lat'], data_flight['summary']['to']['lon'], data_flight['summary']['to']['lat'])
-		print(haversine)
+		haversine = float(calc_haversine(data_flight['summary']['from']['lon'], data_flight['summary']['from']['lat'], data_flight['summary']['to']['lon'], data_flight['summary']['to']['lat']))
+		
 		print("Options Time")
 		for option in data_flight['options']:
 			print("!!!!!!!!!!!!!!!!!")
-			time_flight = convert_string_dateTime(option['arrival_time']) - convert_string_dateTime(option['departure_time'])
-			print( "TEMPO VOO" )
-			print( time_flight )
-			print( "TEMPO VOO (HORAS)" )
-			print( time_flight.seconds / 3600.0 )
-			print("Preço Tarifa por KM")
-			km_tarifa = float(haversine) / float(option['fare_price']) 
-			print( "{0:.2f}".format(round( km_tarifa,2)) )
-			time_minutes = time_flight.seconds / 3600.0
+
+			print( "DISTANCIA km" )
+			print(haversine)
+
 			print( "VELOCIDADE MEDIA" )
-			velocidade_media = float(haversine) / time_minutes
+			time_flight = tempo_voo(option['arrival_time'], option['departure_time'])
+			velocidade_media = haversine / time_flight
 			print( "{0:.2f}".format(round( velocidade_media,2)) )
-			if velocidade_media > 1500:
-				print(option["departure_time"])
-				print(option["arrival_time"])
-				print(option["aircraft"]["model"])
-			print("!!!!!!!!!!!!!!!!!")	
+
+			print("Preço Tarifa por KM")
+			km_tarifa = haversine / float(option['fare_price']) 
+			print( "{0:.2f}".format(round( km_tarifa,2)) )
+
+			print("!!!!!!!!!!!!!!!!!")
+
 		print("----------------------------------------------")
 	print("#########################################")
