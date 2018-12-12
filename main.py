@@ -1,8 +1,9 @@
 #! /usr/bin/python3.6
 import requests
 from datetime import datetime, timedelta	
-import functions
+from utils.functions import check_airport, calc_haversine, convert_string_dateTime, tempo_voo
 import psycopg2
+from models.airport import AirportModel
 
 # # Sample Basic Auth Url with login values as username and password
 url_airports = "http://stub.2xt.com.br/air/airports/qhjvlDvYOwbbu9yq9Dq9DpzrprLAewmO"
@@ -28,12 +29,14 @@ for key, value in data.items():
 	count+=1
 print("\n\n")	
 print(airports)
-exit()
+print("\n\n")
+
 for airport_from in airports:
 	for airport_to in airports:
-		if functions.check_airport(airport_from, airport_to) == False:
+		if check_airport(airport_from, airport_to) == False:
 			print("AEROPORTO NAO VERIFICADO: " + airport_to['iata'])
 			continue
+		
 		#http://stub.2xt.com.br/air/search/:apikey:/:departure_airport:/:arrival_airport:/:departure_date:
 		url_search = base_url_search+airport_from['iata']+'/'+airport_to['iata']+'/'+date_search
 		response = requests.get(url_search, auth=auth_values)
@@ -46,7 +49,7 @@ for airport_from in airports:
 
 		print("----------------------------------------------")
 		print("Haversine")
-		haversine = float(functions.calc_haversine(data_flight['summary']['from']['lon'], data_flight['summary']['from']['lat'], data_flight['summary']['to']['lon'], data_flight['summary']['to']['lat']))
+		haversine = float(calc_haversine(data_flight['summary']['from']['lon'], data_flight['summary']['from']['lat'], data_flight['summary']['to']['lon'], data_flight['summary']['to']['lat']))
 		
 		print("Options Time")
 		for option in data_flight['options']:
@@ -56,7 +59,7 @@ for airport_from in airports:
 			print(haversine)
 
 			print( "VELOCIDADE MEDIA" )
-			time_flight = functions.tempo_voo(option['arrival_time'], option['departure_time'])
+			time_flight = tempo_voo(option['arrival_time'], option['departure_time'])
 			velocidade_media = haversine / time_flight
 			print( "{0:.2f}".format(round( velocidade_media,2)) )
 
