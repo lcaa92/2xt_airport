@@ -2,6 +2,7 @@
 import requests
 from datetime import datetime, timedelta	
 import functions
+import psycopg2
 
 # # Sample Basic Auth Url with login values as username and password
 url_airports = "http://stub.2xt.com.br/air/airports/qhjvlDvYOwbbu9yq9Dq9DpzrprLAewmO"
@@ -25,7 +26,9 @@ for key, value in data.items():
 		break
 	airports.append(value)
 	count+=1
-
+print("\n\n")	
+print(airports)
+exit()
 for airport_from in airports:
 	for airport_to in airports:
 		if functions.check_airport(airport_from, airport_to) == False:
