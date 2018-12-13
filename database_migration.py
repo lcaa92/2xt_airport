@@ -1,34 +1,21 @@
 #! /usr/bin/python3.6
 import psycopg2
+from models.connectorDatabase import ConnectorDatabase
 
 try:
-    # this:
-    print("Iniciando conexão com banco de dados")
-    con = psycopg2.connect(host='localhost', database='2xt', user='2xt', password='2xt')
-    cur = con.cursor()
-    print("Conectado")
-    print("\n")
-
     print("Criando tabela de aeroportos")
-    sql_airports = "CREATE TABLE airports (id serial PRIMARY KEY, iata text, city text, lat numeric, lon numeric, state text);"
-    cur.execute(sql_airports)
-    con.commit()
+    sql_airports = "CREATE TABLE airports (id serial PRIMARY KEY, iata text UNIQUE, city text, lat numeric, lon numeric, state text);"
+    ConnectorDatabase.runSql(sql_airports)
     print("Tabela criada")
-    print("\n")
 
     print("Criando tabela de rotas")
-    sql_routes = "CREATE TABLE routes (id serial PRIMARY KEY, url_mockup text, distance numeric, lowest_price numeric, aircraft text);"
-    cur.execute(sql_routes)
-    con.commit()
+    sql_routes = "CREATE TABLE routes (id serial PRIMARY KEY, url_mockup text, distance numeric, lowest_price numeric, km_price numeric, aircraft text, time_flight numeric, average_speed numeric);"
+    ConnectorDatabase.runSql(sql_routes)
     print("Tabela criada")
-
-    cur.close()
-    con.close()
     print("FIM")
-    exit()
 
 except psycopg2.Error as e:
-    print ("Error !!!!")
+    print ("Error")
     print (e)
     print (e.pgcode)
     print (e.pgerror)
