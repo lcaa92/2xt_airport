@@ -77,6 +77,8 @@ for airport_from in airports:
 		route['aircraft'] = aircraft
 		route['time_flight'] = "{0:.2f}".format(round( time_flight,2))
 		route['average_speed'] = "{0:.2f}".format(round( haversine / time_flight,2))
+		route['airport_from'] = airport_from['iata']
+		route['airport_to'] = airport_to['iata']
 
 		RouteModel.create(route)
 
