@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>2XT - Interface Web</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="https://getbootstrap.com/docs/3.3/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/docs/3.3/examples/dashboard/dashboard.css" rel="stylesheet">
+    <link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="https://getbootstrap.com/docs/3.3/assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">2XT - Teste Python</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Dashboard</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div style="margin-left: unset" class="col-sm-9 col-sm-offset-3 col-md-12 ">
+
+          <div class="col-md-6 table-responsive">
+            <h2 class="sub-header">Viagens Mais Longa (Tempo)</h2>
+            <table class="table table-striped" id="table_viagens_longa_tempo">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Distancia</th>
+                  <th>Menor Preço</th>
+                  <th>Preço/KM</th>
+                  <th>Aeronave</th>
+                  <th>Tempo Voo</th>
+                  <th>Velocidade Média</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="col-md-6 table-responsive">
+            <h2 class="sub-header">Viagens Mais Longa (KM)</h2>
+            <table class="table table-striped" id="table_viagens_longa_km">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Distancia</th>
+                  <th>Menor Preço</th>
+                  <th>Preço/KM</th>
+                  <th>Aeronave</th>
+                  <th>Tempo Voo</th>
+                  <th>Velocidade Média</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              </tbody>
+            </table>
+          </div>
+
+
+          <div class="col-md-6 table-responsive">
+            <h2 class="sub-header">Aeroportos com mais viagens</h2>
+            <table class="table table-striped" id="table_estados_mais_aeroportos">
+              <thead>
+                <tr>
+                  <th>Estado</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              </tbody>
+            </table>
+          </div>
+
+          <div class="col-md-6 table-responsive">
+            <h2 class="sub-header">Aeroportos de partida</h2>
+            <table class="table table-striped" id="table_aeroportos_saida">
+              <thead>
+                <tr>
+                  <th>IATA</th>
+                  <th>Mais Próximo</th>
+                  <th>Mais Distante</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="https://getbootstrap.com/docs/3.3/dist/js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="https://getbootstrap.com/docs/3.3/assets/js/vendor/holder.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="https://getbootstrap.com/docs/3.3/assets/js/ie10-viewport-bug-workaround.js"></script>
+
+    <script type="text/javascript">
+    	$( document ).ready(function() {
+		    //alert( "ready!" );
+		  });
+
+		  $.get( "viagens_longas_tempo", function(data) {
+      
+        data = JSON.parse("[" + data + "]")[0];
+
+        dataSrc = []
+        data.forEach(function (viagem, index) {
+          dataSrc.push([
+            viagem.id,
+            viagem.distance,
+            viagem.lowest_price,
+            viagem.km_price,
+            viagem.aircraft,
+            viagem.time_flight,
+            viagem.average_speed
+          ])
+        })
+
+  		  $('#table_viagens_longa_tempo').DataTable({
+            "paging"      : true,
+            "lengthChange": true,
+            "searching"   : false,
+            "ordering"    : true,
+            "info"        : true,
+            "autoWidth"   : true,
+  		      "data": dataSrc,
+  		  })
+		  })
+  		.fail(function() {
+  		    alert( "Falha ao buscar viagens" );
+  		});
+
+
+      $.get( "viagens_longas_km", function(data) {
+      
+        data = JSON.parse("[" + data + "]")[0];
+
+        dataSrcViagensKm = []
+        data.forEach(function (viagem, index) {
+          dataSrcViagensKm.push([
+            viagem.id,
+            viagem.distance,
+            viagem.lowest_price,
+            viagem.km_price,
+            viagem.aircraft,
+            viagem.time_flight,
+            viagem.average_speed
+          ])
+        })
+
+        $('#table_viagens_longa_km').DataTable({
+            "paging"      : true,
+            "lengthChange": true,
+            "searching"   : false,
+            "ordering"    : true,
+            "info"        : true,
+            "autoWidth"   : true,
+            "data": dataSrcViagensKm
+        })
+      })
+      .fail(function() {
+          alert( "Falha ao buscar viagens" );
+      });
+
+      $.get( "estado_com_mais_aeroportos", function(data) {
+      
+        data = JSON.parse("[" + data + "]")[0];
+        
+        dataSrcEstadosTotal = []
+        data.forEach(function (estado, index) {
+          dataSrcEstadosTotal.push([
+            estado.state,
+            estado.total
+          ])
+        })
+
+        $('#table_estados_mais_aeroportos').DataTable({
+            "paging"      : true,
+            "lengthChange": true,
+            "searching"   : false,
+            "ordering"    : true,
+            "info"        : true,
+            "autoWidth"   : true,
+            "order": [[ 1, "desc" ]],
+            "data": dataSrcEstadosTotal
+        })
+      })
+      .fail(function() {
+          alert( "Falha ao buscar viagens" );
+      });
+
+      $.get( "aeroportos_saida", function(data) {
+      
+        data = JSON.parse("[" + data + "]")[0];
+        
+        dataSrcAeroportosSaida = []
+        data.forEach(function (aeroporto, index) {
+          dataSrcAeroportosSaida.push([
+            aeroporto.iata,
+            aeroporto.proximo,
+            aeroporto.distante
+          ])
+        })
+
+        $('#table_aeroportos_saida').DataTable({
+            "paging"      : true,
+            "lengthChange": true,
+            "searching"   : false,
+            "ordering"    : true,
+            "info"        : true,
+            "autoWidth"   : true,
+            "order": [[ 1, "desc" ]],
+            "data": dataSrcAeroportosSaida
+        })
+      })
+      .fail(function() {
+          alert( "Falha ao buscar viagens" );
+      });
+		 
+    </script>
+  </body>
+</html>
