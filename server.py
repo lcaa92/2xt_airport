@@ -5,6 +5,7 @@ from models.airport import AirportModel
 from models.routes import RouteModel
 import string,cgi,time
 from os import curdir, sep
+from config.config import Config
 
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 
@@ -38,5 +39,5 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         	#self.wfile.write(bytes(response_content, "utf-8"))
 
 
-httpd = HTTPServer(('localhost', 8001), SimpleHTTPRequestHandler)
+httpd = HTTPServer((Config.server['host'], Config.server['port']), SimpleHTTPRequestHandler)
 httpd.serve_forever()

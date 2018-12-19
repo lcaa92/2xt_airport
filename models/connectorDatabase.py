@@ -1,10 +1,12 @@
 import psycopg2
+from config.config import Config
+import traceback
 
 class ConnectorDatabase:
 
 	def runSql(sql):
 		try:
-			con = psycopg2.connect(host='localhost', database='2xt', user='2xt', password='2xt')
+			con = psycopg2.connect(host=Config.database['host'], database=Config.database['database'], user=Config.database['user'], password=Config.database['password'])
 			cur = con.cursor()
 
 			cur = con.cursor()
@@ -23,7 +25,7 @@ class ConnectorDatabase:
 
 	def runSqlConsulta(sql):
 		try:
-			con = psycopg2.connect(host='localhost', database='2xt', user='2xt', password='2xt')
+			con = psycopg2.connect(host=Config.database['host'], database=Config.database['database'], user=Config.database['user'], password=Config.database['password'])
 			cur = con.cursor()
 
 			cur = con.cursor()
@@ -43,7 +45,7 @@ class ConnectorDatabase:
 
 	def runSqlConsultaUmElemento(sql):
 		try:
-			con = psycopg2.connect(host='localhost', database='2xt', user='2xt', password='2xt')
+			con = psycopg2.connect(host=Config.database['host'], database=Config.database['database'], user=Config.database['user'], password=Config.database['password'])
 			cur = con.cursor()
 
 			cur = con.cursor()

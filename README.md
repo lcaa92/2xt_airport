@@ -11,5 +11,9 @@ Pacotes Necessários
 - python3.6
 - python3-psycopg2
 
+Configuração
+
+- Acesse o arquivo config.py dentro da pasta config e defina as configurações de Banco de Dados e Servidor
+
 Acesso Web
 - Qualquer rota que não seja para busca de informações ( /aeroportos_saida, /estado_com_mais_aeroportos, /viagens_longas_tempo, /viagens_longas_km)
